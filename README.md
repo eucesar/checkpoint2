@@ -60,6 +60,10 @@ Com isso, você poderá acessar a documentação interativa via navegador:
 
 - [http://localhost:8080](http://localhost:8080)
 
+```properties
+- http://localhost:8080/swagger-ui.html
+```
+
 ---
 
 # 🛠 Endpoints da API
