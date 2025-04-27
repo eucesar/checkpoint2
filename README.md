@@ -1,87 +1,133 @@
-# API de Gestão de Pacientes - Spring Boot
+# 🏥 API de Sistema de Agenda de Consultas - Spring Boot
 
-Este projeto consiste em uma API Java para gestão de pacientes utilizando Spring Boot. O sistema permite o cadastro, atualização, consulta e remoção de dados de pacientes.
+Este projeto é uma API REST em Java utilizando Spring Boot para a gestão de Pacientes, Profissionais da Saúde e Consultas.
 
-# Pré-requisitos
-- Java 11 ou superior
-- Maven
-- IDE (como IntelliJ IDEA ou Eclipse)
+A API permite:
+- Cadastrar, atualizar, consultar e remover pacientes
+- Cadastrar, atualizar, consultar e remover profissionais
+- (Opcional) Cadastrar, atualizar, consultar e remover consultas médicas
 
-# Instalação
+Toda a documentação da API está disponível via Swagger.
 
-Clonando o Repositório
-Primeiro, clone o repositório para a sua máquina local:
-* git clone <URL-do-repositório>
-* Limpar e criar a pasta */target*
+---
 
+# ✅ Pré-requisitos
+- Java 17 ou superior
+- Maven 3.6+ instalado
+- IDE de sua preferência (IntelliJ IDEA, Eclipse, VSCode)
 
-# Construir o Projeto
+---
 
-Após clonar o repositório, navegue até o diretório do projeto e execute o seguinte comando para limpar e criar a pasta /target com os artefatos compilados:
+# ⚙️ Instalação e Configuração
 
-* mvn clean package
+## 1. Clonar o Repositório
+Clone o repositório para a sua máquina local:
 
-
-# Configuração do Swagger
-
-A API utiliza o Swagger para documentação interativa. Para configurar o Swagger, adicione as seguintes configurações no arquivo
-* application.properties:
-- https://springdoc.org/properties.html
-- application.properties
-
-Isso permite acessar a interface Swagger no endereço http://localhost:8080/ para interagir com a API de forma visual.
-
+```bash
+git clone <URL-do-repositório>
 ```
+
+## 2. Build do Projeto
+Dentro do diretório do projeto, execute:
+
+```bash
+mvn clean package
+```
+
+Isso vai gerar a pasta `/target` com os artefatos compilados.
+
+## 3. Rodar o Projeto
+Execute a aplicação usando:
+
+```bash
+mvn spring-boot:run
+```
+
+O servidor será iniciado na porta padrão **8080**.
+
+---
+
+# 📚 Configuração do Swagger
+
+Para ativar o Swagger UI, adicione no seu `application.properties`:
+
+```properties
 springdoc.swagger-ui.path=/
 springdoc.swagger-ui.disable-swagger-default-url=true
 ```
 
-# Navegação
-Executar a API
-Você pode rodar a aplicação usando o Maven. Para isso, execute o comando abaixo:
-* mvn spring-boot:run
-Isso iniciará o servidor na porta padrão 8080.
+Com isso, você poderá acessar a documentação interativa via navegador:
 
-# Documentação da API (Swagger)
-Após rodar a aplicação, a documentação interativa do Swagger estará disponível em:
+- [http://localhost:8080](http://localhost:8080)
 
-- http://localhost:8080/swagger-ui.html
+---
 
+# 🛠 Endpoints da API
 
-# Executar a API
+## 🡩 Pacientes
 
-Os seguintes endpoints estão disponíveis na API:
+- `POST /pacientes` – Cadastrar paciente
+- `GET /pacientes` – Listar todos os pacientes
+- `GET /pacientes/{id}` – Buscar paciente pelo ID
+- `PUT /pacientes/{id}` – Atualizar paciente pelo ID
+- `DELETE /pacientes/{id}` – Deletar paciente pelo ID
 
-POST /pacientes: Criar um novo paciente
+## 🡩‍⚕️ Profissionais
 
-PUT /pacientes/{id}: Atualizar um paciente existente
+- `POST /profissionais` – Cadastrar profissional
+- `GET /profissionais` – Listar todos os profissionais
+- `GET /profissionais/{id}` – Buscar profissional pelo ID
+- `PUT /profissionais/{id}` – Atualizar profissional pelo ID
+- `DELETE /profissionais/{id}` – Deletar profissional pelo ID
 
-DELETE /pacientes/{id}: Remover um paciente
+## 🗕️ Consultas (Opcional)
 
-GET /pacientes: Buscar todos os pacientes
+- `POST /consultas` – Agendar nova consulta
+- `GET /consultas` – Listar todas as consultas
+- `GET /consultas/{id}` – Buscar consulta pelo ID
+- `PUT /consultas/{id}` – Atualizar dados da consulta
+- `DELETE /consultas/{id}` – Cancelar consulta
 
-GET /pacientes/{id}: Buscar paciente por ID
+**Observação:**  
+O valor da consulta é calculado automaticamente conforme o valor por hora do profissional × quantidade de horas da consulta.
 
+---
 
-# Testes
-Os testes automatizados para a API podem ser executados usando o seguinte comando Maven:
-* mvn test
-Isso executará todos os testes definidos no projeto.
+# 🧹 Estrutura do Projeto
 
-# Estrutura do Projeto
-* src/main/java/br/com/fiap/checkpoint1/: Contém o código-fonte da aplicação.
+```
+src/main/java/br/com/fiap/checkpoint1/
+│
+├── controller/       # Controladores da API (REST)
+├── dto/              # Data Transfer Objects (DTOs) de entrada e saída
+├── model/            # Modelos (Entidades) de Paciente, Profissional e Consulta
+├── service/          # Serviços de negócios (regras e persistência em memória)
+└── Checkpoint1Application.java  # Classe principal (Spring Boot Starter)
+```
 
-* controller/: Controladores da API.
+---
 
-* dto/: Objetos de Transferência de Dados (DTOs) para requisições e respostas.
+# 🧪 Executar os Testes
 
-* model/: Modelos de dados (entidades) que representam pacientes.
+Para rodar os testes automatizados (caso implementados):
 
-* service/: Lógica de negócio e operações relacionadas aos pacientes.
+```bash
+mvn test
+```
 
+---
 
-# Referencias
-- https://springdoc.org/
-- https://www.oracle.com/java/technologies/downloads/?er=221886#jdk24-windows
-- https://www.java.com/pt-BR/
+# 🔗 Referências
+
+- [Documentação do SpringDoc OpenAPI](https://springdoc.org/)
+- [Java 17 Download](https://www.oracle.com/java/technologies/downloads/)
+- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
+- [Swagger OpenAPI 3.0](https://swagger.io/specification/)
+
+---
+
+# ✨ Observações Finais
+- Este projeto é um *checkpoint acadêmico* com persistência **em memória** (não usa banco de dados ainda).
+- Foi desenvolvido com base no **MER** fornecido para agendamento de consultas médicas.
+- Ideal para aplicações simples de aprendizado com **Java + Spring Boot**.
 
